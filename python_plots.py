@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def bar_plot(data_sheet, design_sheet, settings_sheet, graph_path):
+def ploter(data_sheet, design_sheet, settings_sheet, graph_path):
     
     design_sheet['valor_opcao'] = design_sheet['valor_opcao'].fillna("")
     settings_sheet['valor_config'] = settings_sheet['valor_config'].fillna("")
@@ -17,7 +17,7 @@ def bar_plot(data_sheet, design_sheet, settings_sheet, graph_path):
         plt.ylabel(dic_design['nome_eixo_y'])
         plt.title(dic_design['titulo'])
 
-    if dic_settings['plot'] == "pie":
+    elif dic_settings['plot'] == "pie":
 
         plt.pie(data_sheet['Valor'], labels=data_sheet['Nome'])
         plt.title(dic_design['titulo'])

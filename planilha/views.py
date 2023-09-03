@@ -10,7 +10,10 @@ import python_plots
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
+
+    static_url = settings.STATIC_URL
+
+    return render(request, 'index.html', {'static_url':static_url})
 
 def templates(request):
 
@@ -57,7 +60,7 @@ def exibir_grafico(request):
     media_root = os.path.join(settings.BASE_DIR, 'media')
     graph_path = os.path.join(media_root, 'grafico.png')
 
-    python_plots.bar_plot(data_sheet, design_sheet, settings_sheet, graph_path)
+    python_plots.ploter(data_sheet, design_sheet, settings_sheet, graph_path)
 
 
     # Crie o URL correto para a imagem de mídia usando urljoin
