@@ -5,12 +5,18 @@ import matplotlib.pyplot as plt
 import os
 from urllib.parse import urljoin
 from django.conf import settings
-import uuid
+import python_plots
 
 # Create your views here.
 
 def home(request):
     return render(request, 'home.html')
+
+def templates(request):
+
+    static_url = settings.STATIC_URL
+
+    return render(request, "templates.html", {'static_url':static_url})
 
 def upload_planilha(request):
 
@@ -20,7 +26,7 @@ def upload_planilha(request):
             planilha = form.cleaned_data['arquivo']
 
             # Gere um nome de arquivo único usando uuid
-            nome_arquivo = f"planilha_{uuid.uuid4()}.xlsx"
+            nome_arquivo = f"planilha.xlsx"
 
             # Caminho absoluto para salvar a planilha no servidor
             caminho_arquivo = os.path.join(settings.MEDIA_ROOT, "planilhas",nome_arquivo)
@@ -42,27 +48,17 @@ def exibir_grafico(request):
     tipo_grafico = request.POST.get('tipo_grafico')
     # Processar a planilha e criar o gráfico usando o caminho do arquivo
     caminho_arquivo = request.session.get('caminho_arquivo')
-    df = pd.read_excel(caminho_arquivo)
 
-    # Salvar o gráfico em um arquivo temporário
-    if tipo_grafico == "Gráfico de Barras":
-        plt.pie(df['Nome'], df['Valor'])
-        plt.xlabel('Nome')
-        plt.ylabel('Valor')
-        plt.title('Gráfico de Barras primeiro')
-    else:
-        plt.bar(df['Nome'], df['Valor'])
-        plt.xlabel('Nome')
-        plt.ylabel('Valor')
-        plt.title(f'Gráfico de Barras segundo {tipo_grafico}')
+    data_sheet = pd.read_excel(caminho_arquivo, sheet_name="data")
+    design_sheet = pd.read_excel(caminho_arquivo, sheet_name="design")
+    settings_sheet = pd.read_excel(caminho_arquivo, sheet_name="settings")
 
     # Crie o caminho absoluto para salvar o gráfico na pasta "media"
     media_root = os.path.join(settings.BASE_DIR, 'media')
     graph_path = os.path.join(media_root, 'grafico.png')
 
-    # Salve o gráfico no caminho absoluto
-    plt.savefig(graph_path)
-    plt.close()
+    python_plots.bar_plot(data_sheet, design_sheet, settings_sheet, graph_path)
+
 
     # Crie o URL correto para a imagem de mídia usando urljoin
     media_url = settings.MEDIA_URL

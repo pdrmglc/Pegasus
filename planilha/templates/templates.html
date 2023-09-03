@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <title>Templates</title>
+</head>
+<body>
+    <h1>
+        Baixe aqui os templates para cada tipo de gráfico!
+    </h1>
+    <a href="{{ static_url }}exemplo_planilhas/grafico_barras.xlsx" class="btn btn-primary" download>Gráfico de barras</a>
+    <a href="{{ static_url }}exemplo_planilhas/grafico_pizza.xlsx" class="btn btn-primary" download>Gráfico de pizza</a>
+
+    <a href="{% url 'upload_planilha' %}" class="btn btn-primary">Ir para a Página de Upload</a>
+</body>
+</html>

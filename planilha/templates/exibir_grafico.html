@@ -10,7 +10,9 @@
 <body>
     <h1>Gráfico</h1>
     <!-- Use o URL correto para exibir a imagem -->
-    <img src="{{ graph_url }}" alt="Gráfico">
+    <img src="{{ graph_url }}" alt="Gráfico" width="667" height="500">
+
+    <a href="{{ graph_url }}" class="btn btn-primary" download>Download gráfico</a>
 
     <a href="{% url 'upload_planilha' %}" class="btn btn-primary">Retornar para a Página de Upload</a>
 </body>
