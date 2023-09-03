@@ -10,8 +10,8 @@ class PlanilhaForm(forms.ModelForm):
         # Adicione outros tipos de gráfico conforme necessário
     ]
 
-    tipo_grafico = forms.ChoiceField(choices=tipos, label='Escolha o Tipo de Gráfico')  # Substitua TIPOS_GRAFICO pelas opções desejadas
+    tipo_grafico = forms.ChoiceField(choices=tipos, label='Escolha o Tipo de Gráfico')
 
     class Meta:
         model = Planilha
-        fields = ('arquivo',)
+        fields = ('arquivo', )

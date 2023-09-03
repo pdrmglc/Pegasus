@@ -38,23 +38,23 @@ def upload_planilha(request):
     return render(request, 'upload_planilha.html', {'form': form})
 
 def exibir_grafico(request):
-
-    # tipo_grafico = request.POST.get('tipo_grafico')
+    
+    tipo_grafico = request.POST.get('tipo_grafico')
     # Processar a planilha e criar o gráfico usando o caminho do arquivo
     caminho_arquivo = request.session.get('caminho_arquivo')
     df = pd.read_excel(caminho_arquivo)
 
     # Salvar o gráfico em um arquivo temporário
-    # if tipo_grafico == "barra":
-    plt.bar(df['Nome'], df['Valor'])
-    plt.xlabel('Nome')
-    plt.ylabel('Valor')
-    plt.title('Gráfico de Barras')
-    # else:
-    #     plt.pie(df['Nome'], df['Valor'])
-    #     plt.xlabel('Nome')
-    #     plt.ylabel('Valor')
-    #     plt.title('Gráfico de Barras')
+    if tipo_grafico == "Gráfico de Barras":
+        plt.pie(df['Nome'], df['Valor'])
+        plt.xlabel('Nome')
+        plt.ylabel('Valor')
+        plt.title('Gráfico de Barras primeiro')
+    else:
+        plt.bar(df['Nome'], df['Valor'])
+        plt.xlabel('Nome')
+        plt.ylabel('Valor')
+        plt.title(f'Gráfico de Barras segundo {tipo_grafico}')
 
     # Crie o caminho absoluto para salvar o gráfico na pasta "media"
     media_root = os.path.join(settings.BASE_DIR, 'media')
