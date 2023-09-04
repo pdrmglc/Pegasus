@@ -23,6 +23,8 @@ def templates(request):
 
 def upload_planilha(request):
 
+    static_url = settings.STATIC_URL
+
     if request.method == 'POST':
         form = PlanilhaForm(request.POST, request.FILES)
         if form.is_valid():
@@ -44,9 +46,11 @@ def upload_planilha(request):
             return redirect('exibir_grafico')
     else:
         form = PlanilhaForm()
-    return render(request, 'upload_planilha.html', {'form': form})
+    return render(request, 'upload_planilha.html', {'form': form, 'static_url':static_url})
 
 def exibir_grafico(request):
+
+    static_url = settings.STATIC_URL
     
     tipo_grafico = request.POST.get('tipo_grafico')
     # Processar a planilha e criar o gráfico usando o caminho do arquivo
@@ -67,4 +71,4 @@ def exibir_grafico(request):
     media_url = settings.MEDIA_URL
     graph_url = urljoin(media_url, 'grafico.png')
 
-    return render(request, 'exibir_grafico.html', {'graph_url': graph_url})
+    return render(request, 'exibir_grafico.html', {'graph_url': graph_url, 'static_url':static_url})
