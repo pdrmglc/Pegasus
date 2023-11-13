@@ -2,7 +2,7 @@
 
 ## Programming-Enhanced Graphs Automation and Statistics Utility System
 
-# Esse projeto visa o desenvolvimento de gráficos de alta qualidade em Python e R para publicação
+# Esse projeto visa o desenvolvimento de gráficos de alta qualidade em Python e R para publicações científicas
 
 # Principais Recursos:
  - Geração Automatizada de Gráficos:
